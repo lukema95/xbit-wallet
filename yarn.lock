@@ -30,6 +30,11 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@ensdomains/buffer@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@ensdomains/buffer/-/buffer-0.1.1.tgz#6c275ba7e457e935405b67876f1f0d980c8baa63"
+  integrity sha512-92SfSiNS8XorgU7OUBHo/i1ZU7JV7iz/6bKuLPNVsMxV79/eI7fJR6jfJJc40zAHjs3ha+Xo965Idomlq3rqnw==
+
 "@ensdomains/ens@^0.4.4":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@ensdomains/ens/-/ens-0.4.5.tgz#e0aebc005afdc066447c6e22feb4eda89a5edbfc"
@@ -1697,7 +1702,7 @@ asn1.js@^5.2.0:
     minimalistic-assert "^1.0.0"
     safer-buffer "^2.1.0"
 
-asn1@~0.2.3:
+asn1@^0.2.4, asn1@~0.2.3:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.6.tgz#0d3a7bb6e64e02a90c0303b31f292868ea09a08d"
   integrity sha512-ix/FxPn0MDjeyJ7i/yoHGFt/EX6LyNbxSEhPPXODPL+KB0VPk86UYfL0lMdy+KCnv+fmvIzySwaK5COwqVbWTQ==
@@ -3465,6 +3470,24 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
+
+dkim-key@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/dkim-key/-/dkim-key-1.3.0.tgz#8d47fb44bc9f831e4c15135b3ef860a31f9c85d3"
+  integrity sha512-19+M28U4pucj6R5OfOBpWjNwUNouQUJBEN/w20MIwOVodF17kDMr03rQxvk0m8V+JRrx3x3DGyexvXgubjo5dw==
+
+dkim-signature@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/dkim-signature/-/dkim-signature-1.3.0.tgz#aee5d45a8fcf8f79faa3a3a239e711eacd4de099"
+  integrity sha512-/NPCgG9L+k1+QhCWkGO6QlTavFg1AuhutYE197O/TsQb8OrJk52UJMMBL8eHzZ8Ei8SaUVCeoluJJunQrvz5Vg==
+
+dkim@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/dkim/-/dkim-0.8.0.tgz#c5a3b5239e25c2d896a2536f65ee09a6f2e12e1b"
+  integrity sha512-lFkIcyPLnd9CqAsY3jHylQh89RL8d5enRgHHr0vMkuhNCe4fS91E+TQnJPvLK/2EFDLW6gBHTAKAU7aYzrBAhQ==
+  dependencies:
+    dkim-key "^1.3.0"
+    dkim-signature "^1.3.0"
 
 doctrine@^2.1.0:
   version "2.1.0"
@@ -7121,6 +7144,13 @@ node-gyp-build@^4.2.0, node-gyp-build@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.5.0.tgz#7a64eefa0b21112f89f58379da128ac177f20e40"
   integrity sha512-2iGbaQBV+ITgCz76ZEjmhUKAKVf7xfY1sRl4UiKQspfZMH2h06SyhNsnSVy50cwkFQDGLyif6m/6uFXHkOZ6rg==
+
+node-rsa@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/node-rsa/-/node-rsa-1.1.1.tgz#efd9ad382097782f506153398496f79e4464434d"
+  integrity sha512-Jd4cvbJMryN21r5HgxQOpMEqv+ooke/korixNNK3mGqfGJmy0M77WDDzo/05969+OkMy3XW1UuZsSmW9KQm7Fw==
+  dependencies:
+    asn1 "^0.2.4"
 
 nofilter@^1.0.4:
   version "1.0.4"

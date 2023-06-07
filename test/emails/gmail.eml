@@ -1,0 +1,79 @@
+Return-Path: <lukema95@gmail.com>
+Delivered-To: 4@1202973
+Received: from imap-director-2.dovecot.cloudprous.ewr.xion.oxcs.net ([10.105.5.2])
+	by imap-backend-10.dovecot.cloudprous.ewr.xion.oxcs.net with LMTP
+	id YN8DJhkmG2RkGAAAAj4guw
+	(envelope-from <lukema95@gmail.com>)
+	for <4@1202973>; Wed, 22 Mar 2023 16:00:25 +0000
+Received: from mx.godaddy.rs.oxcs.net ([10.105.2.2])
+	by imap-director-2.dovecot.cloudprous.ewr.xion.oxcs.net with LMTP
+	id UhLcIRYmG2SDfgAAt6wWng:T3
+	(envelope-from <lukema95@gmail.com>)
+	for <nathanma@baas.com>; Wed, 22 Mar 2023 16:00:25 +0000
+X-original-to: nathanma@baas.com
+Received: from p3plibsmtp01-03.prod.phx3.gdg (p3plibsmtp01-03.prod.phx3.secureserver.net [208.109.193.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx.godaddy.rs.oxcs.net (Postfix) with ESMTPS id 4PhY8n3ZGsz14Mj1
+	for <nathanma@baas.com>; Wed, 22 Mar 2023 16:00:25 +0000 (UTC)
+Received: from mail-pf1-f182.google.com ([209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 256/256 bits)
+	(Client did not present a certificate)
+	by CMGW with ESMTP
+	id f0sspxwcqmoxRf0stpFLT8; Wed, 22 Mar 2023 09:00:21 -0700
+X-CMAE-Analysis: v=2.4 cv=Ztsraf3G c=1 sm=1 tr=0 ts=641b2615 cx=a_idp_d
+ a=auZFhOzWS5H0Xlzol9Q3ww==:117 a=k__wU0fu6RkA:10 a=x7bEGLp0ZPQA:10
+ a=GDf5aRSGqFwA:10 a=tclcd6dtLQvEqt9_mmAA:9 a=QEXdDO2ut3YA:10
+ a=akILak57vEnE9FJhf-Fo:22 a=fFqYmaMLY-MyyZfuSoDJ:22 a=Z5ABNNGmrOfJ6cZ5bIyy:22
+ a=jd6J4Gguk5HxikPWLKER:22
+Received: by mail-pf1-f182.google.com with SMTP id u38so6617689pfg.10
+        for <nathanma@baas.com>; Wed, 22 Mar 2023 09:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679500818;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=B2RuXG1j8a/u0JXnY9jqsjWbeGkEygAB4SiawJE+oIU=;
+        b=Itw960dfL/chSyaGdKyrDlt1H1/19okW+BeeJhf/KMrARrB6X5B2xM9P+BpXLG5FEA
+         RTZdVl2NV8dWg1y4xMN5fgai+kxJN+KfNQHpkYb6jkjaZ5byz9GHtlU0hDM9NBmUgque
+         S3ZpNqorkCJHtApiiYTa6glHkhc4dhXEfTwjEYTDDEAh6TUDgvIfdQRGYvBvMBGHmHlE
+         3CcW8AE6pWXAxzcA4qUT6BqtDrXepjTzFwrGZoXI37WgLRK/lFI9hmmAZmu4CAPhmrr0
+         ei9eTCPJSGIS2OUtfru8WmZmqpe8AE4eRW6XxAV3RnWJNJQCWKLZC0rGXoMliPnLTAvD
+         OEUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679500818;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=B2RuXG1j8a/u0JXnY9jqsjWbeGkEygAB4SiawJE+oIU=;
+        b=z1pgccBsA7WoFPd/x5TJ9OAbYltqJbnI8BBNxEh7pcQDoIKwc2JRkG+qgVG0DuICrt
+         7tnQZXzkbXwS+FMfRP89dDfZlrCdoK7NHbBP2v6qfUimh1LhmbBdHp0C8SMGKnDNzhhk
+         gH4B2zUJGp6z8dakVOL+GLHcK4N2Eo7F7IOki8LCZaVkhGBM8o7QvaNeCh0FVwZTkXAZ
+         NhObb+qxcSucQVRkRCp32KKta+wsTEnTFCMLtIvQCUom6T+m0g/z3NKMCHIlmZ2V1T/Q
+         9vcsOmWXkJmEYIazCVg8S36Zr4twyxz1n/MEQ++1CutZJ29UrVsfb2HYch5bX2Cd7T6P
+         GqgA==
+X-Gm-Message-State: AO0yUKXuUFZvPxMTvkha2TanK1j0m5DwK10NS+AP2DE8YJ/vPk3Mp9ky
+	XXq/XvesB2ygaV5bR8IUqd9xmfiZTMt4qCz7P/2urNDI
+X-Google-Smtp-Source: AK7set/uEkILlAzXqJPyZjg3cFj3KZi5AhpTondajYpyGvtBLFot0Qg5Saew5rv1lmcu/C342tMOej2CJl9tYZtRrco=
+X-Received: by 2002:a65:4304:0:b0:4f2:8281:8afb with SMTP id
+ j4-20020a654304000000b004f282818afbmr969018pgq.4.1679500817680; Wed, 22 Mar
+ 2023 09:00:17 -0700 (PDT)
+MIME-Version: 1.0
+From: LUKE MA <lukema95@gmail.com>
+Date: Thu, 23 Mar 2023 00:00:06 +0800
+Message-ID: <CAHH46twjEjNjG-g_J7Q0PiX32EYufrz_y4=1KbJwQsjHnSXVnA@mail.gmail.com>
+Subject: 0xe494891ecf8f64ba335c1bc157500b09c4b2f9cbd9e2fd6c1c402779d0b6b7c5
+To: nathanma@baas.com
+Content-Type: multipart/alternative; boundary="000000000000a34d2905f77f41ec"
+X-CMAE-Envelope: MS4xfFYMKbiOlpONa6X25VxT0FSOjwh7HfqAyIdf3MTdmx8vujjMwBQ0pvnTAKQS0fgH+jCvxkc9lP5UVDZoT9FuR76m5fbkniPXI5C22IBabs1Ivhpv2G4H
+ pyRW+1zGVDc6NOlBPwRhNGPaGjcu5l/aF8F13/MI+s6k16UZ44QUgGGmDDn5KtCi3PK6gfN1m9d/jpi+eU+ViLM9L+DscEFnYmk=
+
+--000000000000a34d2905f77f41ec
+Content-Type: text/plain; charset="UTF-8"
+
+
+
+--000000000000a34d2905f77f41ec
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><br></div>
+
+--000000000000a34d2905f77f41ec--

@@ -140,6 +140,31 @@ export function signUserOp (op: UserOperation, signer: Wallet, entryPoint: strin
   }
 }
 
+export function multiSignUserOp (op: UserOperation, signer: Wallet, serverSigner: Wallet, entryPoint: string, chainId: number): UserOperation {
+  const msg = constructMsgToSign(op, entryPoint, chainId)
+
+  const sig1 = ecsign(keccak256_buffer(msg), Buffer.from(arrayify(signer.privateKey)))
+  let signedMessage = toRpcSig(sig1.v, sig1.r, sig1.s)
+
+  const sig2 = ecsign(keccak256_buffer(msg), Buffer.from(arrayify(serverSigner.privateKey)))
+  signedMessage = signedMessage + toRpcSig(sig2.v, sig2.r, sig2.s).replace('0x', '')
+
+  return {
+    ...op,
+    signature: signedMessage
+  }
+}
+
+export function constructMsgToSign (op: UserOperation, entryPoint: string, chainId: number): Buffer {
+  const message = getUserOpHash(op, entryPoint, chainId)
+  const msg = Buffer.concat([
+    Buffer.from('\x19Ethereum Signed Message:\n32', 'ascii'),
+    Buffer.from(arrayify(message))
+  ])
+
+  return msg
+}
+
 export function fillUserOpDefaults (op: Partial<UserOperation>, defaults = DefaultsForUserOp): UserOperation {
   const partial: any = { ...op }
   // we want "item:undefined" to be used from defaults, and not override defaults, so we must explicitly

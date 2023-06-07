@@ -13,13 +13,22 @@ import {
   IEntryPoint,
   SimpleAccount,
   SimpleAccountFactory__factory,
-  SimpleAccount__factory, SimpleAccountFactory, TestAggregatedAccountFactory
+  SimpleAccount__factory,
+  SimpleAccountFactory,
+  TestAggregatedAccountFactory,
+  XBitWallet,
+  XBitWallet__factory,
+  XBitWalletFactory,
+  XBitWalletFactory__factory,
+  TestDKIMAccount,
+  TestDKIMAccount__factory
 } from '../typechain'
 import { BytesLike } from '@ethersproject/bytes'
 import { expect } from 'chai'
 import { Create2Factory } from '../src/Create2Factory'
 import { debugTransaction } from './debugTx'
 import { UserOperation } from './UserOperation'
+import { uint256 } from './solidityTypes'
 
 export const AddressZero = ethers.constants.AddressZero
 export const HashZero = ethers.constants.HashZero
@@ -270,6 +279,14 @@ export async function deployEntryPoint (provider = ethers.provider): Promise<Ent
   return EntryPoint__factory.connect(addr, provider.getSigner())
 }
 
+export async function deployTestDKIMAccount (provider = ethers.provider): Promise<TestDKIMAccount> {
+  const create2factory = new Create2Factory(provider)
+  const epf = new TestDKIMAccount__factory(provider.getSigner())
+  const addr = await create2factory.deploy(epf.bytecode, 0, process.env.COVERAGE != null ? 20e6 : 8e6)
+
+  return TestDKIMAccount__factory.connect(addr, provider.getSigner())
+}
+
 export async function isDeployed (addr: string): Promise<boolean> {
   const code = await ethers.provider.getCode(addr)
   return code.length > 2
@@ -306,4 +323,39 @@ export async function createAccount (
     accountFactory,
     proxy
   }
+}
+
+export async function createXBitWallet (
+  ethersSigner: Signer,
+  aggregator: string,
+  accountOwner: string,
+  server: string,
+  entryPoint: string,
+  dkimService: string,
+  publicKey: any[4],
+  _factory?: XBitWalletFactory
+):
+  Promise<{
+    proxy: XBitWallet
+    accountFactory: XBitWalletFactory
+    implementation: string
+  }> {
+  const accountFactory = _factory ?? await new XBitWalletFactory__factory(ethersSigner).deploy(entryPoint, aggregator, dkimService)
+  const implementation = await accountFactory.accountImplementation()
+  await accountFactory.createAccount(accountOwner, server, 0, publicKey)
+  const accountAddress = await accountFactory.getAddress(accountOwner, server, 0, publicKey)
+  const proxy = XBitWallet__factory.connect(accountAddress, ethersSigner)
+  return {
+    implementation,
+    accountFactory,
+    proxy
+  }
+}
+
+// todo: fix this
+export function genRecoveryEmailSubject (account: string, nonce: uint256): string {
+  const abi = ['address', 'uint256']
+  const encodedData = ethers.utils.defaultAbiCoder.encode(abi, [account, nonce])
+  const hash = ethers.utils.keccak256(encodedData)
+  return hash
 }
